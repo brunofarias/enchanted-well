@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-
 
 public class PlayerController : MonoBehaviour
 {
@@ -64,6 +62,11 @@ public class PlayerController : MonoBehaviour
     animator = GetComponent<Animator>();
     isFreeze = false;
     // particulas.Stop();
+
+    isChild = true;
+    isAdult = false;
+    isOld = false;
+    childWorld.SetActive(true);
   }
 
   // Update is called once per frame
@@ -90,36 +93,48 @@ public class PlayerController : MonoBehaviour
       xAxis = Input.GetAxisRaw("Horizontal");
       yAxis = Input.GetAxisRaw("Vertical");
 
+      //criança
       if (Input.GetKey(KeyCode.R))
       {
         isChild = true;
         isAdult = false;
         isOld = false;
         jumpForce = 400;
-        walkSpeed = 7f;
+        walkSpeed = 4.5f;
         // particulas.Play();
+        // childWorld.SetActive(true);
+        // adultWorld.SetActive(false);
+        // oldWorld.SetActive(false);
         animator.runtimeAnimatorController = childAnin as RuntimeAnimatorController;
       }
 
+      //adulto
       if (Input.GetKey(KeyCode.F))
       {
         isAdult = true;
         isOld = false;
         isChild = false;
         jumpForce = 300;
-        walkSpeed = 5f;
+        walkSpeed = 4f;
         // particulas.Play();
+        // adultWorld.SetActive(true);
+        // childWorld.SetActive(false);
+        // oldWorld.SetActive(false);
         animator.runtimeAnimatorController = adultAnin as RuntimeAnimatorController;
       }
 
+      //velho
       if (Input.GetKey(KeyCode.V))
       {
         isOld = true;
         isAdult = false;
         isChild = false;
-        jumpForce = 200;
+        jumpForce = 250;
         walkSpeed = 3f;
         // particulas.Play();
+        // oldWorld.SetActive(true);
+        // childWorld.SetActive(false);
+        // adultWorld.SetActive(false);
         animator.runtimeAnimatorController = oldAnin as RuntimeAnimatorController;
       }
 

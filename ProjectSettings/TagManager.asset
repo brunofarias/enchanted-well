@@ -6,6 +6,8 @@ TagManager:
   tags:
   - WellOld
   - WellYoung
+  - Obstacle
+  - Die
   layers:
   - Default
   - TransparentFX
@@ -48,4 +50,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 4172746967
+    locked: 0
+  - name: Background
+    uniqueID: 1959983109
     locked: 0
