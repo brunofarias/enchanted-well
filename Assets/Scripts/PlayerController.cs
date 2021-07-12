@@ -9,8 +9,10 @@ public class PlayerController : MonoBehaviour
   [SerializeField] float yAxis;
   [SerializeField] float walkSpeed;
   [SerializeField] float jumpForce;
-  [SerializeField] Vector2 leftOffset = Vector2.zero;
-  [SerializeField] Vector2 rightOffset = Vector2.zero;
+  [SerializeField] float groundDistance = 0.3f;
+  public Transform groundCheckLeft;
+  public Transform groundCheckRight;
+  public LayerMask groundLayer;
 
   [Header("Config Estado")]
   public bool isOld;
@@ -67,6 +69,9 @@ public class PlayerController : MonoBehaviour
     isAdult = false;
     isOld = false;
     childWorld.SetActive(true);
+    adultWorld.SetActive(false);
+    oldWorld.SetActive(false);
+    
   }
 
   // Update is called once per frame
@@ -79,10 +84,11 @@ public class PlayerController : MonoBehaviour
   {
     if (!isFreeze)
     {
-      // DetectCollision();
+      DetectCollision();
       ApplyIdle();
       ApplyMovement();
       ApplyJumping();
+      ApplyFall();
     }
   }
 
@@ -102,9 +108,9 @@ public class PlayerController : MonoBehaviour
         jumpForce = 400;
         walkSpeed = 4.5f;
         // particulas.Play();
-        // childWorld.SetActive(true);
-        // adultWorld.SetActive(false);
-        // oldWorld.SetActive(false);
+        childWorld.SetActive(true);
+        adultWorld.SetActive(false);
+        oldWorld.SetActive(false);
         animator.runtimeAnimatorController = childAnin as RuntimeAnimatorController;
       }
 
@@ -117,9 +123,9 @@ public class PlayerController : MonoBehaviour
         jumpForce = 300;
         walkSpeed = 4f;
         // particulas.Play();
-        // adultWorld.SetActive(true);
-        // childWorld.SetActive(false);
-        // oldWorld.SetActive(false);
+        adultWorld.SetActive(true);
+        childWorld.SetActive(false);
+        oldWorld.SetActive(false);
         animator.runtimeAnimatorController = adultAnin as RuntimeAnimatorController;
       }
 
@@ -132,9 +138,9 @@ public class PlayerController : MonoBehaviour
         jumpForce = 250;
         walkSpeed = 3f;
         // particulas.Play();
-        // oldWorld.SetActive(true);
-        // childWorld.SetActive(false);
-        // adultWorld.SetActive(false);
+        oldWorld.SetActive(true);
+        childWorld.SetActive(false);
+        adultWorld.SetActive(false);
         animator.runtimeAnimatorController = oldAnin as RuntimeAnimatorController;
       }
 
@@ -148,6 +154,10 @@ public class PlayerController : MonoBehaviour
       xAxis = 0;
       if (isGrounded) rb.velocity = Vector2.zero;
     }
+  }
+  void DetectCollision()
+  {
+    isGrounded = Physics2D.OverlapArea(groundCheckLeft.position, groundCheckRight.position, groundLayer);
   }
 
   void ApplyIdle()
@@ -181,10 +191,17 @@ public class PlayerController : MonoBehaviour
   {
     if (isJumpPressed)
     {
-      isGrounded = false;
       isJumpPressed = false;
       rb.AddForce(new Vector2(0, jumpForce));
       ChangeAnimationState(PLAYER_JUMP);
+    }
+  }
+
+  void ApplyFall()
+  {
+    if (rb.velocity.y < 0 && !isGrounded)
+    {
+      ChangeAnimationState(PLAYER_FALL);
     }
   }
 
@@ -207,6 +224,11 @@ public class PlayerController : MonoBehaviour
     if (currentState == newState) return;
     animator.Play(newState);
     currentState = newState;
+  }
+
+  void OnDrawGizmosSelected()
+  {
+    Gizmos.DrawLine(groundCheckLeft.position, groundCheckRight.position);
   }
 
   public void closeGame()
