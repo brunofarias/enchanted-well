@@ -41,8 +41,6 @@ public class PlayerCollider : MonoBehaviour
       }
     }
 
-    if (coll.gameObject.layer == 6) Player.isGrounded = true;
-
     if (coll.gameObject.tag == "Obstacle")
     {
       Rigidbody2D rb = coll.gameObject.GetComponent<Rigidbody2D>();
@@ -60,6 +58,6 @@ public class PlayerCollider : MonoBehaviour
 
   void OnCollisionExit2D(Collision2D coll)
   {
-    if (coll.gameObject.tag == "Platform") transform.parent = null;    
+    if (coll.gameObject.tag == "Platform") transform.parent = null;  
   }
 }
