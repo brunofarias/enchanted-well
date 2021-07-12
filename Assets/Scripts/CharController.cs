@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class CharController : MonoBehaviour {
 
@@ -52,6 +54,7 @@ void Walk()
 
 public void DestroyPlayer()
 {
+	SceneManager.LoadScene("GamePlay");
 	Destroy(this.gameObject);
 }
 
