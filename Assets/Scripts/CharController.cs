@@ -14,6 +14,7 @@ Rigidbody rBody;
 
 void Start()
 	{
+		anim.Play ("Walking");
 		rBody = GetComponent<Rigidbody>();
 	}
 
@@ -52,8 +53,19 @@ void Walk()
 		isWell=true;
 	}
 
+
+
+public void WalkWell()
+{
+	anim.Play ("Walking");
+	isWell=false;
+	forwardVel=2;
+	Invoke ("DestroyPlayer",0.1f);
+}
+
 public void DestroyPlayer()
 {
+	
 	SceneManager.LoadScene("GamePlay");
 	Destroy(this.gameObject);
 }
