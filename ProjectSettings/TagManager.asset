@@ -8,6 +8,9 @@ TagManager:
   - WellYoung
   - Obstacle
   - Die
+  - hitBox
+  - Well
+  - CheckPoint
   layers:
   - Default
   - TransparentFX
