@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
   [SerializeField] float yAxis;
   [SerializeField] float walkSpeed;
   [SerializeField] float jumpForce;
-  [SerializeField] float groundDistance = 0.3f;
   public Transform groundCheckLeft;
   public Transform groundCheckRight;
   public LayerMask groundLayer;
@@ -128,6 +127,7 @@ public class PlayerController : MonoBehaviour
       //velho
       if (Input.GetKey(KeyCode.V))
       {
+        if (isOld == true) 
         isOld = true;
         isAdult = false;
         isChild = false;
@@ -230,4 +230,5 @@ public class PlayerController : MonoBehaviour
   {
     Application.Quit();
   }
+  
 }
