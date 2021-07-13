@@ -43,7 +43,6 @@ public class PlayerController : MonoBehaviour
   public GameObject oldWorld;
   public GameObject adultWorld;
   public GameObject childWorld;
-  // public ParticleSystem particulas;
   public bool isFreeze;
 
   private static PlayerController instance;
@@ -63,7 +62,6 @@ public class PlayerController : MonoBehaviour
     rb = GetComponent<Rigidbody2D>();
     animator = GetComponent<Animator>();
     isFreeze = false;
-    // particulas.Stop();
 
     isChild = true;
     isAdult = false;
@@ -107,7 +105,6 @@ public class PlayerController : MonoBehaviour
         isOld = false;
         jumpForce = 400;
         walkSpeed = 4.5f;
-        // particulas.Play();
         childWorld.SetActive(true);
         adultWorld.SetActive(false);
         oldWorld.SetActive(false);
@@ -122,7 +119,6 @@ public class PlayerController : MonoBehaviour
         isChild = false;
         jumpForce = 300;
         walkSpeed = 4f;
-        // particulas.Play();
         adultWorld.SetActive(true);
         childWorld.SetActive(false);
         oldWorld.SetActive(false);
@@ -137,7 +133,6 @@ public class PlayerController : MonoBehaviour
         isChild = false;
         jumpForce = 250;
         walkSpeed = 3f;
-        // particulas.Play();
         oldWorld.SetActive(true);
         childWorld.SetActive(false);
         adultWorld.SetActive(false);
